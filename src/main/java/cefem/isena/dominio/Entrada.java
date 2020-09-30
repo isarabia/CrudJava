@@ -1,5 +1,7 @@
 package cefem.isena.dominio;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +10,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "entrada")
-public class Entrada {
+public class Entrada implements Serializable {
+
+	private static final long serialVersionUID = -7200657610724369407L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

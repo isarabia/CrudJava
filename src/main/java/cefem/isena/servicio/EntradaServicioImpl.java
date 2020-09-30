@@ -40,4 +40,6 @@ public class EntradaServicioImpl implements EntradaServicio{
 		data.deleteById(id);
 	}
 
+
+
 }

@@ -3,14 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 	<form action="/upload" method="post" enctype="multipart/form-data">
+	<div class="card-body">
+		<label>TÍTULO</label><br>
+		<input type="text" name="titulo" multiple>
+	</div>
+	<div class="card-body">
+		<label>DESCRIPCIÓN</label><br>
+		<input type="text" name="descripcion" multiple>
+	</div>
+	<div class="card-body">
+		<label>CUERPO</label><br>
+		<input type="text" name="cuerpo" multiple>
+	</div>
+	<div class="card-body">
+		<label>IMAGEN</label><br>
 		<input type="file" name="files" multiple>
-		<input type="submit" value="Upload Files">
+	</div>
+		
+	<input type="submit" value="Upload Files">
+	
 	</form>
 	<div class="m-5">
-		<a th:href="@{/}"><button class="btn btn-primary">Volver</button></a>
+		<a th:href="@{/listar}"><button class="btn btn-primary">Volver</button></a>
 	</div>
 </body>
 </html>

@@ -7,25 +7,23 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cefem.isena.dominio.Entrada;
 import cefem.isena.servicio.EntradaServicio;
 
 @Controller
 @RequestMapping
-public class EntradaControlador {
+public class EntradaControlador2 {
 	
 	public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/images";
 	
@@ -46,11 +44,11 @@ public class EntradaControlador {
 	}
 	
 	@PostMapping("/guardar")
-	public String save(@Validated Entrada entrada, Model model) {
+	public String guardar(@RequestParam(name = "file", required = false) MultipartFile imagen, Entrada entrada, RedirectAttributes flash) {
 		service.save(entrada);
-		return "redirect:/listar";
+		return "redirect:/";
 	}
-	
+
 	@GetMapping("/editar/{id}")
 	public String editar(@PathVariable int id, Model model) {
 		Optional<Entrada>entrada=service.listarId(id);
@@ -69,8 +67,8 @@ public class EntradaControlador {
 		return "uploadview";
 	}
 	
-	@RequestMapping("/upload")
-	public String upload(Model model,@RequestParam("files") MultipartFile[] files) {
+	@PostMapping("/upload")
+	public String upload(Model model,@RequestParam("files") MultipartFile[] files, Entrada entrada, RedirectAttributes flash) {
 		StringBuilder fileNames = new StringBuilder();
 		for (MultipartFile file : files) {
 			Path fileNameAndPath = Paths.get(uploadDirectory,file.getOriginalFilename());
@@ -83,7 +81,10 @@ public class EntradaControlador {
 			
 		}
 		model.addAttribute("msg", "Successfully upload files " + fileNames.toString());
+		
+		service.save(entrada);
 			return "uploadstatusview";
 	}
+	
 
 }
