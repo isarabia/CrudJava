@@ -81,7 +81,7 @@ public class EntradaControlador2 {
 			
 		}
 		model.addAttribute("msg", "Successfully upload files " + fileNames.toString());
-		
+		entrada.setImagen(fileNames.toString());
 		service.save(entrada);
 			return "uploadstatusview";
 	}
